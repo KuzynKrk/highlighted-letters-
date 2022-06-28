@@ -2,33 +2,50 @@ let paragraf = document.getElementById("paragraf-article");
 let contetn = paragraf.innerHTML =  "<b>" + "Hel" + "</b>" + "lo" ;
 let button = document.getElementById("convert-button");
 let inputText = document.getElementById("inputText");
+let regex = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+let arr = [];
 
 button.addEventListener("click", doMagic);
 
 function doMagic() {
     inputTextValue = document.getElementById("inputText").value;
 
-    let splitText = inputTextValue.split(" ");
+                let splitText = inputTextValue.split(regex);
+                let splitTextCh = inputTextValue.split("");
+                arr = [];
 
+            
+                splitText.forEach(e => {
 
-   globlalParagraf = "";
-    splitText.forEach(e => {
-        let eachWord = e.split("");
-        
-        let howManyWords = eachWord.length;
-        let mathWo = Math.ceil(howManyWords / 2);
+                    if (e.match(regex)) {
+                        arr.push(e);
+                    } else {
+                        let eLength = e.length / 2;
+                        i = 0;
+                        e.split("").forEach(element => {
+                            i++;
+                            if (i <= eLength) {
+                                arr.push("<b>" + element + "</b>")
+                            } else {
+                                arr.push(element);
+                            }
+                        });
 
-        console.log(mathWo);
-        let arrStart = eachWord.slice(0, mathWo);
-        let arrEnd = eachWord.slice(mathWo)
+                    };
 
-        let start = arrStart.join("");
-        let end = arrEnd.join("");
-        let specialChar = "";
-        
-        globlalParagraf = globlalParagraf + "<b>" + start + "</b>" + end + " ";          
+                });
 
-    });
-    paragraf.innerHTML = globlalParagraf;      
+                splitTextCh.findIndex(specialCh);
 
-}  
+                function specialCh(element, index) {
+
+                    if ( element.match(regex) ) {
+                        arr.splice(index, 0, element);
+                    };
+                    
+                }
+
+                
+                paragraf.innerHTML = arr.join("");      
+
+            }  
